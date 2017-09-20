@@ -48,5 +48,9 @@ var gameBoardModel = {
             name: "Patrol Boat",
             hits: 2
         }
-    }
+    },
+    getCollection: function(collection) {
+        return this[collection]
+    },
+    // 
 }
