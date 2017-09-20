@@ -1,14 +1,14 @@
 var shipData = [
     [null, null, null, null, null, null, null, null, null, null],
-    ['X', null, null, null, null, null, null, null, 'X', null],
-    ['X', null, 'X', 'X', 'X', 'X', 'X', null, 'X', null],
-    ['X', null, null, null, null, null, null, null, 'X', null],
-    [null, null, 'X', null, null, null, null, null, null, null],
-    [null, null, 'X', null, null, null, null, null, null, null],
-    ['X', null, null, null, null, null, null, null, null, null],
-    ['X', null, null, null, null, null, null, null, null, null],
-    ['X', null, null, null, null, null, null, null, null, null],
-    ['X', null, null, null, null, null, null, null, null, null]
+    ['S', null, null, null, null, null, null, null, 'D', null],
+    ['S', null, 'C', 'C', 'C', 'C', 'C', null, 'D', null],
+    ['S', null, null, null, null, null, null, null, 'D', null],
+    [null, null, 'P', null, null, null, null, null, null, null],
+    [null, null, 'P', null, null, null, null, null, null, null],
+    ['B', null, null, null, null, null, null, null, null, null],
+    ['B', null, null, null, null, null, null, null, null, null],
+    ['B', null, null, null, null, null, null, null, null, null],
+    ['B', null, null, null, null, null, null, null, null, null]
 ];
 
 
@@ -24,6 +24,30 @@ var gameState = [
     [null, null, null, null, null, null, null, null, null, null],
     [null, null, null, null, null, null, null, null, null, null]
 ];
+
+
+var schips = {
+    C: {
+        name: "Carrier",
+        hits: 5
+    },
+    B: {
+      name: "Battleship",
+      hits: 3
+    },
+    S: {
+      name: "Submarine",
+      hits: 3
+    },
+    D: {
+      name: "Destroyer",
+      hits: 4
+    },
+    P: {
+        name: "Patrol Boat",
+      hits: 2
+    }
+  };
 
 // Carrier - 5hits
 // battleship - 4
