@@ -1,14 +1,14 @@
 var shipData = [
     [null, null, null, null, null, null, null, null, null, null],
-    ['S', null, null, null, null, null, null, null, 'D', null],
-    ['S', null, 'C', 'C', 'C', 'C', 'C', null, 'D', null],
-    ['S', null, null, null, null, null, null, null, 'D', null],
+    ['S', null, null, null, null, null, null, null, 'B', null],
+    ['S', null, 'C', 'C', 'C', 'C', 'C', null, 'B', null],
+    ['S', null, null, null, null, null, null, null, 'B', null],
     [null, null, 'P', null, null, null, null, null, null, null],
     [null, null, 'P', null, null, null, null, null, null, null],
-    ['B', null, null, null, null, null, null, null, null, null],
-    ['B', null, null, null, null, null, null, null, null, null],
-    ['B', null, null, null, null, null, null, null, null, null],
-    ['B', null, null, null, null, null, null, null, null, null]
+    ['D', null, null, null, null, null, null, null, null, null],
+    ['D', null, null, null, null, null, null, null, null, null],
+    ['D', null, null, null, null, null, null, null, null, null],
+    ['D', null, null, null, null, null, null, null, null, null]
 ];
 
 
@@ -90,13 +90,21 @@ function play(cell) {
     var col = cell.getAttribute('col');
     var row = cell.parentElement.getAttribute('row');
     var score = Number(document.getElementById('score').innerHTML);
-    var hits = Number(document.getElementById('hits').innerHTML);
-    if (gameState[row][col] == null) {
-        if (shipData[row][col] == 'X') {
+    var totalhits = Number(document.getElementById('hits').innerHTML);
+    if (gameState[row][col] == null) {   
+        if (shipData[row][col] !== null) {
             alert('Hit!');
+            for(var key in schips){
+                if(key == shipData[row][col]){
+                    schips[key].hits--;
+                    if(schips[key].hits==0){
+                        alert('you sunk my: ' + schips[key].name);
+                    }
+                }
+            }
             gameState[row][col] = 'X';
             score += 5;
-            hits -= 1;
+            totalhits -= 1;
         } else {
             alert('You Hit Water!');
             gameState[row][col] = 'O';
@@ -105,10 +113,10 @@ function play(cell) {
     } else {
         alert('you tryed already this one');
     }
-    document.getElementById('hits').innerHTML = hits;
+    document.getElementById('hits').innerHTML = totalhits;
     document.getElementById('score').innerHTML = score;
     populateGameBoard(gameState);
-    hasGameEnded(hits);
+    hasGameEnded(totalhits);
 }
 
 function hasGameEnded(hits){
