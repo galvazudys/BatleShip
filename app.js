@@ -1,14 +1,14 @@
 var shipData = [
     [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, 'X', null],
-    [null, null, 'X', 'X', 'X', 'X', 'X', null, 'X', null],
-    [null, null, null, null, null, null, null, null, 'X', null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null]
+    ['X', null, null, null, null, null, null, null, 'X', null],
+    ['X', null, 'X', 'X', 'X', 'X', 'X', null, 'X', null],
+    ['X', null, null, null, null, null, null, null, 'X', null],
+    [null, null, 'X', null, null, null, null, null, null, null],
+    [null, null, 'X', null, null, null, null, null, null, null],
+    ['X', null, null, null, null, null, null, null, null, null],
+    ['X', null, null, null, null, null, null, null, null, null],
+    ['X', null, null, null, null, null, null, null, null, null],
+    ['X', null, null, null, null, null, null, null, null, null]
 ];
 
 
@@ -66,12 +66,13 @@ function play(cell) {
     var col = cell.getAttribute('col');
     var row = cell.parentElement.getAttribute('row');
     var score = Number(document.getElementById('score').innerHTML);
-
+    var hits = Number(document.getElementById('hits').innerHTML);
     if (gameState[row][col] == null) {
         if (shipData[row][col] == 'X') {
             alert('Hit!');
             gameState[row][col] = 'X';
             score += 5;
+            hits -= 1;
         } else {
             alert('You Hit Water!');
             gameState[row][col] = 'O';
@@ -80,8 +81,22 @@ function play(cell) {
     } else {
         alert('you tryed already this one');
     }
+    document.getElementById('hits').innerHTML = hits;
     document.getElementById('score').innerHTML = score;
     populateGameBoard(gameState);
+    hasGameEnded(hits);
+}
+
+function hasGameEnded(hits){
+    if (hits === 0){
+        alert("You won the game");
+       var tds = document.getElementsByTagName("td");
+       for (var i = 0; i < tds.length; i++){
+           tds[i].onclick = function(){
+                alert("The game has finished!"); 
+           }
+       }
+   }
 }
 
 
