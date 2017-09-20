@@ -31,6 +31,8 @@ var gameState = [
 // submarine - 3
 // patrol boat - 2
 
+
+
 function createGameBoard() {
     var gameBoard = document.getElementById('gameBoard');
     for (var i = 0; i < 10; i++) {
@@ -63,19 +65,25 @@ function populateGameBoard(gameState) {
 function play(cell) {
     var col = cell.getAttribute('col');
     var row = cell.parentElement.getAttribute('row');
+    var score = Number(document.getElementById('score').innerHTML);
+
     if (gameState[row][col] == null) {
         if (shipData[row][col] == 'X') {
             alert('Hit!');
             gameState[row][col] = 'X';
+            score += 5;
         } else {
             alert('You Hit Water!');
             gameState[row][col] = 'O';
+            score -= 1;
         }
     } else {
         alert('you tryed already this one');
     }
+    document.getElementById('score').innerHTML = score;
     populateGameBoard(gameState);
 }
+
 
 window.onload = function () {
     createGameBoard();
