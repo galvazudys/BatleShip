@@ -1,53 +1,4 @@
-var shipData = [
-    [null, null, null, null, null, null, null, null, null, null],
-    ['S', null, null, null, null, null, null, null, 'B', null],
-    ['S', null, 'C', 'C', 'C', 'C', 'C', null, 'B', null],
-    ['S', null, null, null, null, null, null, null, 'B', null],
-    [null, null, 'P', null, null, null, null, null, null, null],
-    [null, null, 'P', null, null, null, null, null, null, null],
-    ['D', null, null, null, null, null, null, null, null, null],
-    ['D', null, null, null, null, null, null, null, null, null],
-    ['D', null, null, null, null, null, null, null, null, null],
-    ['D', null, null, null, null, null, null, null, null, null]
-];
 
-
-var gameState = [
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null]
-];
-
-
-var schips = {
-    C: {
-        name: "Carrier",
-        hits: 5
-    },
-    B: {
-      name: "Battleship",
-      hits: 3
-    },
-    S: {
-      name: "Submarine",
-      hits: 3
-    },
-    D: {
-      name: "Destroyer",
-      hits: 4
-    },
-    P: {
-        name: "Patrol Boat",
-      hits: 2
-    }
-  };
 
 // Carrier - 5hits
 // battleship - 4
@@ -66,7 +17,7 @@ function createGameBoard() {
             var tableData = document.createElement('td');
             tableData.setAttribute('col', j);
             tableData.setAttribute('onclick', 'play(this)');
-            tableData.innerHTML = shipData[i][j];
+            tableData.innerHTML = gameBoardModel.shipData[i][j];
             tableRow.appendChild(tableData);
         }
         gameBoard.appendChild(tableRow);
@@ -75,13 +26,11 @@ function createGameBoard() {
 
 function populateGameBoard(gameState) {
     var gameBoard = document.getElementById('gameBoard');
-    for (var i = 0; i < gameState.length; i++) {
+    for (var i = 0; i < gameBoardModel.gameState.length; i++) {
         var row = gameBoard.children[i];
-        console.log(row);
-        for (var j = 0; j < gameState[i].length; j++) {
+        for (var j = 0; j < gameBoardModel.gameState[i].length; j++) {
             var col = row.children[j];
-            console.log(col);
-            col.innerHTML = gameState[i][j]
+            col.innerHTML = gameBoardModel.gameState[i][j]
         }
     }
 }
@@ -91,23 +40,23 @@ function play(cell) {
     var row = cell.parentElement.getAttribute('row');
     var score = Number(document.getElementById('score').innerHTML);
     var totalhits = Number(document.getElementById('hits').innerHTML);
-    if (gameState[row][col] == null) {   
-        if (shipData[row][col] !== null) {
+    if (gameBoardModel.gameState[row][col] == null) {   
+        if (gameBoardModel.shipData[row][col] !== null) {
             alert('Hit!');
-            for(var key in schips){
-                if(key == shipData[row][col]){
-                    schips[key].hits--;
-                    if(schips[key].hits==0){
-                        alert('you sunk my: ' + schips[key].name);
+            for(var key in gameBoardModel.schips){
+                if(key == gameBoardModel.shipData[row][col]){
+                    gameBoardModel.schips[key].hits--;
+                    if(gameBoardModel.schips[key].hits==0){
+                        alert('you sunk my: ' + gameBoardModel.schips[key].name);
                     }
                 }
             }
-            gameState[row][col] = 'X';
+            gameBoardModel.gameState[row][col] = 'X';
             score += 5;
             totalhits -= 1;
         } else {
             alert('You Hit Water!');
-            gameState[row][col] = 'O';
+            gameBoardModel.gameState[row][col] = 'O';
             score -= 1;
         }
     } else {
@@ -115,7 +64,7 @@ function play(cell) {
     }
     document.getElementById('hits').innerHTML = totalhits;
     document.getElementById('score').innerHTML = score;
-    populateGameBoard(gameState);
+    populateGameBoard(gameBoardModel.gameState);
     hasGameEnded(totalhits);
 }
 
@@ -139,5 +88,5 @@ window.onload = function () {
 
 var startButton = document.getElementById('startButton');
 startButton.onclick = function () {
-    populateGameBoard(gameState);
+    populateGameBoard(gameBoardModel.gameState);
 }
