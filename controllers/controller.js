@@ -10,13 +10,19 @@ var controller = {
     getShipData:function(){
         return this.model.getCollection('shipData');
     },
+    updateBoardState:function(state){
+        gameBoardModel.updateGameState(state); 
+    },
+    createBoard:function(){
+        views.createGameBoard(this.getShipData());
+    },
 
     play:function(col,row,score,totalhits) {
-        var ships = gameBoardModel.getCollection('schips');
-        var shipData = gameBoardModel.getCollection('shipData');
-        var gameState =gameBoardModel.getCollection('gameState'); 
+        var ships = this.model.getCollection('schips');
+        var shipData = this.model.getCollection('shipData');
+        var gameState =this.model.getCollection('gameState'); 
         if (gameState[row][col] == null) {   
-            if (gameBoardModel.getCollection('shipData')[row][col] !== null) {
+            if (shipData[row][col] !== null) {
                 alert('Hit!');
                 for(var key in ships){
                     if(key == shipData[row][col]){
@@ -27,14 +33,14 @@ var controller = {
                     }
                 }
                 gameState[row][col] = 'X';
-                gameBoardModel.updateGameState(gameState);
+                this.updateBoardState(gameState);
                 views.populateGameBoard(gameBoardModel.getCollection('gameState'));
                 score += 5;
                 totalhits -= 1;
             } else {
                 alert('You Hit Water!');
                 gameState[row][col] = 'O';
-                gameBoardModel.updateGameState(gameState);
+                this.updateBoardState(gameState);
                 views.populateGameBoard(gameBoardModel.getCollection('gameState'));
                 score -= 1;
             }

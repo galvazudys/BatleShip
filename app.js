@@ -2,7 +2,8 @@
 window.onload = function () {
     controller.getModel(gameBoardModel);
     controller.getView(views);
-    views.createGameBoard(controller.getShipData());
+    controller.createBoard()
+    
 }
 var startButton = document.getElementById('startButton');
 startButton.onclick = function () {
