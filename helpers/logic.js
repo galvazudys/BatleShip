@@ -1,45 +1,43 @@
 var logic = {
-    playGame: function (col,row,score,totalhits, view, model) {
-        var ships = model.getCollection('schips');
-        var shipData = model.getCollection('shipData');
-        var gameState = model.getCollection('gameState');
-        var message = model.getCollection('message.text');
+    playGame: function (col,row,score,totalhits, ships,shipData,gameState) {
+        var state = {
+            message:'',
+            gameBoardState : '',
+            totalHits:0,
+            score:0
+        }
         if (gameState[row][col] == null) {
             if (shipData[row][col] !== null) {
-                message = 'Hit';
-                view.displayMessage(message);
+                state.message = 'Hit';
                 for (var key in ships) {
                     if (key == shipData[row][col]) {
                         ships[key].hits--;
                         if (ships[key].hits == 0) {
-                            message = 'You destroy my ' + ships[key].name
-                            view.displayMessage(message);
+                            state.message = 'You destroy my ' + ships[key].name
                         }
                     }
                 }
                 gameState[row][col] = 'X';
-                model.updateGameState(gameState);
-                view.populateGameBoard(model.getCollection('gameState'));
+                state.gameBoardState = gameState;
                 score += 5;
                 totalhits -= 1;
             } else {
-                message = 'Oh Boy,You really like WATER';
-                view.displayMessage(message);
+                state.message = 'Oh Boy,You really like WATER';
                 gameState[row][col] = 'O';
-                model.updateGameState(gameState);
-                view.populateGameBoard(model.getCollection('gameState'));
+                state.gameBoardState = gameState;                
                 score -= 1;
             }
         } else {
-            message= 'You tryed already this one...';
-            view.displayMessage(message);
+            state.message= 'You tryed already this one...';
         }
-        view.updateHits(totalhits);
-        view.updateScore(score);
-        view.populateGameBoard(gameBoardModel.getCollection('gameState'));
+        state.totalHits = totalhits;
+        state.score = score;
+        state.gameBoardState = gameState;
         this.hasGameEnded(totalhits);
+        return state;
 
     },
+
     hasGameEnded:function(hits){
         if (hits === 0){
             alert("You won the game");
@@ -56,3 +54,5 @@ var logic = {
 
 
 }
+
+

@@ -7,3 +7,5 @@ controller.js
 terminal based test suite for controller and model
 terminal-based handler - file of hardcoded function calls, or a live terminal interface
 console view object
+
+create a logic object.  controller is now calls to model, logic, view.  not always in that order if its annoying

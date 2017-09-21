@@ -17,7 +17,16 @@ var controller = {
     },
 
     play:function(...cell) {
-        this.logic.playGame(...cell,this.view,this.model);
+        var ships = this.model.getCollection('schips');
+        var shipData = this.model.getCollection('shipData');
+        var gameState = this.model.getCollection('gameState');    
+        var game_played = this.logic.playGame(...cell,ships,shipData,gameState);
+        //calls to update data
+        this.view.displayMessage(game_played.message);
+        this.model.updateGameState(game_played.gameBoardState);
+        this.view.populateGameBoard(game_played.gameBoardState);
+        this.view.updateHits(game_played.totalHits);
+        this.view.updateScore(game_played.score);
     },
     
 
