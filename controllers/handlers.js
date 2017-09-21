@@ -4,6 +4,7 @@ var handlers ={
         var row = cell.parentElement.getAttribute('row');
         var score = Number(document.getElementById('score').innerHTML);
         var totalhits = Number(document.getElementById('hits').innerHTML);
-        controller.play(col,row,score,totalhits);
+        var arr =[col,row,score,totalhits];
+        controller.play(...arr);
     }
 }

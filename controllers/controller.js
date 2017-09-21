@@ -1,56 +1,23 @@
 var controller = {
     model:{},
     view:{},
+    logic:{},
+    getLogic:function(logic){
+        return this.logic = logic;
+    },
     getView:function(view){
         return this.view = view;
     },
     getModel:function(model){
         return this.model = model;
     },
-    getShipData:function(){
-        return this.model.getCollection('shipData');
-    },
-    updateBoardState:function(state){
-        this.model.updateGameState(state); 
-    },
+
     createBoard:function(){
-        this.view.createGameBoard(this.getShipData());
+        this.view.createGameBoard(this.model.getCollection('shipData'));
     },
 
-    play:function(col,row,score,totalhits) {
-        var ships = this.model.getCollection('schips');
-        var shipData = this.model.getCollection('shipData');
-        var gameState =this.model.getCollection('gameState'); 
-        if (gameState[row][col] == null) {   
-            if (shipData[row][col] !== null) {
-                alert('Hit!');
-                for(var key in ships){
-                    if(key == shipData[row][col]){
-                        ships[key].hits--;
-                        if(ships[key].hits==0){
-                            alert('you sunk my: ' + ships[key].name);
-                        }
-                    }
-                }
-                gameState[row][col] = 'X';
-                this.updateBoardState(gameState);
-                this.view.populateGameBoard(this.model.getCollection('gameState'));
-                score += 5;
-                totalhits -= 1;
-            } else {
-                alert('You Hit Water!');
-                gameState[row][col] = 'O';
-                this.updateBoardState(gameState);
-                this.view.populateGameBoard(this.model.getCollection('gameState'));
-                score -= 1;
-            }
-        } else {
-            alert('you tryed already this one');
-        }
-        this.view.updateHits(totalhits);
-        this.view.updateScore(score);
-        this.view.populateGameBoard(gameBoardModel.getCollection('gameState'));
-        this.hasGameEnded(totalhits);
+    play:function(...cell) {
+        this.logic.playGame(...cell,this.view,this.model,this.hasGameEnded);
     },
     
     hasGameEnded:function(hits){
