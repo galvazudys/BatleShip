@@ -1,34 +1,49 @@
 var controller = {
-    play:function(cell) {
-        var col = cell.getAttribute('col');
-        var row = cell.parentElement.getAttribute('row');
-        var score = Number(document.getElementById('score').innerHTML);
-        var totalhits = Number(document.getElementById('hits').innerHTML);
-        if (gameBoardModel.gameState[row][col] == null) {   
-            if (gameBoardModel.shipData[row][col] !== null) {
+    model:{},
+    view:{},
+    getView:function(view){
+        return this.view = view;
+    },
+    getModel:function(model){
+        return this.model = model;
+    },
+    getShipData:function(){
+        return this.model.getCollection('shipData');
+    },
+
+    play:function(col,row,score,totalhits) {
+        var ships = gameBoardModel.getCollection('schips');
+        var shipData = gameBoardModel.getCollection('shipData');
+        var gameState =gameBoardModel.getCollection('gameState'); 
+        if (gameState[row][col] == null) {   
+            if (gameBoardModel.getCollection('shipData')[row][col] !== null) {
                 alert('Hit!');
-                for(var key in gameBoardModel.schips){
-                    if(key == gameBoardModel.shipData[row][col]){
-                        gameBoardModel.schips[key].hits--;
-                        if(gameBoardModel.schips[key].hits==0){
-                            alert('you sunk my: ' + gameBoardModel.schips[key].name);
+                for(var key in ships){
+                    if(key == shipData[row][col]){
+                        ships[key].hits--;
+                        if(ships[key].hits==0){
+                            alert('you sunk my: ' + ships[key].name);
                         }
                     }
                 }
-                gameBoardModel.gameState[row][col] = 'X';
+                gameState[row][col] = 'X';
+                gameBoardModel.updateGameState(gameState);
+                views.populateGameBoard(gameBoardModel.getCollection('gameState'));
                 score += 5;
                 totalhits -= 1;
             } else {
                 alert('You Hit Water!');
-                gameBoardModel.gameState[row][col] = 'O';
+                gameState[row][col] = 'O';
+                gameBoardModel.updateGameState(gameState);
+                views.populateGameBoard(gameBoardModel.getCollection('gameState'));
                 score -= 1;
             }
         } else {
             alert('you tryed already this one');
         }
-        document.getElementById('hits').innerHTML = totalhits;
-        document.getElementById('score').innerHTML = score;
-        views.populateGameBoard(gameBoardModel.gameState);
+        views.updateHits(totalhits);
+        views.updateScore(score);
+        views.populateGameBoard(gameBoardModel.getCollection('gameState'));
         this.hasGameEnded(totalhits);
     },
     
