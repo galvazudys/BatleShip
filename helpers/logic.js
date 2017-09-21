@@ -13,6 +13,7 @@ var logic = {
                         ships[key].hits--;
                         if (ships[key].hits == 0) {
                             message = 'You destroy my ' + ships[key].name
+                            view.displayMessage(message);
                         }
                     }
                 }

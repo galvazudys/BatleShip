@@ -36,7 +36,7 @@ var views = {
         document.getElementById('message').innerHTML = message;
         setTimeout(function(){
             document.getElementById('message').innerHTML = 'Make move';
-        },2000);
+        },3000);
     }
     
 }
