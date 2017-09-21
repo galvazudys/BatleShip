@@ -46,7 +46,11 @@ var gameBoardModel = {
                 name: "Patrol Boat",
                 hits: 2
             }
+        },
+        message:{
+            text:"make move!"
         }
+        
     },
 
 

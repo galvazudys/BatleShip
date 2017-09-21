@@ -17,21 +17,9 @@ var controller = {
     },
 
     play:function(...cell) {
-        this.logic.playGame(...cell,this.view,this.model,this.hasGameEnded);
+        this.logic.playGame(...cell,this.view,this.model);
     },
     
-    hasGameEnded:function(hits){
-        if (hits === 0){
-            alert("You won the game");
-           var tds = document.getElementsByTagName("td");
-           for (var i = 0; i < tds.length; i++){
-               tds[i].onclick = function(){
-                    alert("The game has finished!"); 
-               }
-           }
-       }
-    }
-    // call to model
-    // call to view
+
     
 }

@@ -31,6 +31,12 @@ var views = {
     updateHits:function(hits){
         document.getElementById('hits').innerHTML = hits;
         
+    },
+    displayMessage:function(message){
+        document.getElementById('message').innerHTML = message;
+        setTimeout(function(){
+            document.getElementById('message').innerHTML = 'Make move';
+        },2000);
     }
     
 }

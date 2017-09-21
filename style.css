@@ -20,3 +20,9 @@ header {
     border: 1px solid black;
     text-align: center;
   }
+
+  #message{
+    text-align: center;
+    color: #555;
+    
+  }
