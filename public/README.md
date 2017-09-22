@@ -1,1 +1,0 @@
-# __BatleShip Game__
