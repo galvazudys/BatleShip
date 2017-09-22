@@ -61,6 +61,8 @@ var gameBoardModel = {
     },
     updateGameState:function(newData){
         return this.data.gameState = newData;
-     }
-    // 
+     },
+    setShips:function(ships){
+        this.data.shipData = ships;
+    } 
 }

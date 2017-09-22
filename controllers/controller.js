@@ -11,6 +11,9 @@ var controller = {
     getModel:function(model){
         return this.model = model;
     },
+    setShipData:function(ships){
+        this.model.setShips(ships);
+    },
 
     createBoard:function(){
         this.view.createGameBoard(this.model.getCollection('shipData'));
