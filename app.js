@@ -13,7 +13,6 @@ window.onload = function () {
 var startButton = document.getElementById('startButton');
 startButton.onclick = function () {
     var data = database.ref('randomGames').on('value',(snapShot)=>{
-        console.log(JSON.parse(snapShot.val()[Math.floor(Math.random()*5)]))
         controller.setShipData(JSON.parse(snapShot.val()[Math.floor(Math.random()*5)]));   
         
     });
