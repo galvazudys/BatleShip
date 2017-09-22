@@ -1,0 +1,81 @@
+header {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    letter-spacing: 2px;
+    font-family: 'Inconsolata', monospace;
+  }
+
+  header h1 {
+    font-size: 5em;
+    color: #333;
+    text-shadow: 3px 3px #6B6767;
+  }
+  
+  .container {
+    width: 80%;
+    margin: 0 auto;
+    background: #0de865;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  td {
+    height: 2em;
+    width: 2em;
+    border: 2px solid #2C2A2A;
+    text-align: center;
+    font-family: 'Inconsolata', monospace;
+    color: #D83A1E;
+    font-weight: 800;    
+  }
+
+  #message{
+    text-align: center;
+    color: #555;
+    font-family: 'Inconsolata', monospace;
+
+  }
+
+  #scoreContainer{
+    margin: 20px 1.5em;
+    text-align: center;
+    background: #D83A1E;
+    border: 2px solid #444;
+    font-size: 35px;
+    font-family: 'Inconsolata', monospace;
+  }
+
+  #startButton{
+    background: #4F0DE8;
+    border: 1px solid #555;
+    border-radius: 5px;
+    height: 35px;
+    width: 100px;
+    font-weight: 800;
+    font-family: 'Inconsolata', monospace;
+  }
+
+  #hitsContainer{
+    background: #4F0DE8;
+    float: right;
+    margin-right: 70px;
+    padding-left: 30px;
+    padding-right: 40px;   
+    height:35px;
+    text-align: center;
+    font-weight: 800;
+    font-family: 'Inconsolata', monospace;
+  }
+
+ #hitsContainer p {
+    margin-top: 10px;
+  }
+
+  #hits{
+    background: #D83A1E;
+  }
